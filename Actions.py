@@ -1,11 +1,15 @@
 from time import sleep
-from pitop import Pitop
 import ray
 
-Temp = 0
+import StingToInt
+from StingToInt import *
+WTemp = StingToInt.WaterTemp
+SelectedWtemp = 0
+WTempCounter = 0
+Temp = StingToInt.Temp
 Selectedtemp = 60
 TempCounter = 0
-Hummitity = 0  # is current sensor data that provides hummitity
+Hummitity = StingToInt.Hummitiy  # is current sensor data that provides hummitity
 Selectedhummitity = 60  # Will be value set on dashboard
 Powerbuttontrue = 1  # value will be set to 1 when feature is turned on in dashboard
 Powerbuttonfalse = 0  # value will be set to 1 when featur is turned of in dashboard
@@ -16,13 +20,12 @@ def hummitity():
     Selectedhummitity = 60
     HummitityCounter = 0
 
-    while Powerbuttontrue > Powerbuttonfalse:
+    while Powerbuttontrue != Powerbuttonfalse:
         if Hummitity < Selectedhummitity:
             HummitityCounter = HummitityCounter + 1
             if HummitityCounter == 10:
                 HummitityCounter = 0
                 print("rising Hummidity, Current Hummidity", Hummitity,"  ")
-                pitop.miniscreen.display_text("Current Hummitity")
             # Do something
             sleep(1.5)
 def temp():
@@ -37,4 +40,15 @@ def temp():
                 print("rising Temp, Current Temp: ",Temp,"  ")
             # Do something
             sleep(2)
-
+def watertemp():
+    WTemp = 0
+    SelectedWtemp = 60
+    WTempCounter = 0
+    while Powerbuttontrue > Powerbuttonfalse:
+        if WTemp < SelectedWtemp:
+            WTempCounter = WTempCounter + 1
+            if WTempCounter == 10:
+                WTempCounter = 0
+                print("rising Water Temp, Current Temp: ",WTemp,"  ")
+            # Do something
+            sleep(2)
