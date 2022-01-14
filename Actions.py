@@ -1,8 +1,7 @@
 from time import sleep
-import ray
+import GetDataFromArduino
+import StringToFloat
 
-import StingToInt
-from StingToInt import *
 WTemp = StingToInt.WaterTemp
 SelectedWtemp = 0
 WTempCounter = 0
@@ -16,11 +15,13 @@ Powerbuttonfalse = 0  # value will be set to 1 when featur is turned of in dashb
 HummitityCounter = 0  # value will be set to determinate the current under value
 
 def hummitity():
-    Hummitity = 0
     Selectedhummitity = 60
     HummitityCounter = 0
 
     while Powerbuttontrue != Powerbuttonfalse:
+        GetDataFromArduino.GetData()
+        StringToFloat.StringToFloat()
+        Hummitity = StringToFloat.hummitity
         if Hummitity < Selectedhummitity:
             HummitityCounter = HummitityCounter + 1
             if HummitityCounter == 10:
@@ -29,10 +30,11 @@ def hummitity():
             # Do something
             sleep(1.5)
 def temp():
-    Temp = 0
     Selectedtemp = 60
     TempCounter = 0
     while Powerbuttontrue > Powerbuttonfalse:
+        GetDataFromArduino.GetData()
+        Temp = StringToFloat.temp
         if Temp < Selectedtemp:
             TempCounter = TempCounter + 1
             if TempCounter == 10:
@@ -41,10 +43,11 @@ def temp():
             # Do something
             sleep(2)
 def watertemp():
-    WTemp = 0
     SelectedWtemp = 60
     WTempCounter = 0
     while Powerbuttontrue > Powerbuttonfalse:
+        GetDataFromArduino.GetData()
+        WTemp = StringToFloat.waterTemp
         if WTemp < SelectedWtemp:
             WTempCounter = WTempCounter + 1
             if WTempCounter == 10:
