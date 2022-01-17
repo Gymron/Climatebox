@@ -1,5 +1,4 @@
 import GetDataFromArduino
-from GetDataFromArduino import *
 
 #Sensordata = "nothing in it yet"
 temp = 00.00
@@ -13,4 +12,4 @@ def StringToFloat():
     val1, val2, val3 = [SplittedSensordata[i] for i in (1, 2, 3)]
     waterTemp = float(val1)
     temp = float(val2)
-    hummitiy = float(val3)
+    hummitity = float(val3)

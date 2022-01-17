@@ -2,13 +2,13 @@ from time import sleep
 import GetDataFromArduino
 import StringToFloat
 
-WTemp = StingToInt.WaterTemp
+WTemp = StringToFloat.waterTemp
 SelectedWtemp = 0
 WTempCounter = 0
-Temp = StingToInt.Temp
+Temp = StringToFloat.temp
 Selectedtemp = 60
 TempCounter = 0
-Hummitity = StingToInt.Hummitiy  # is current sensor data that provides hummitity
+Hummitity = StringToFloat.hummitity  # is current sensor data that provides hummitity
 Selectedhummitity = 60  # Will be value set on dashboard
 Powerbuttontrue = 1  # value will be set to 1 when feature is turned on in dashboard
 Powerbuttonfalse = 0  # value will be set to 1 when featur is turned of in dashboard
