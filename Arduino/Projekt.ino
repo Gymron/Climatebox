@@ -19,6 +19,13 @@ char delimiter[] = "+";               //Strings zum String zerteilen
 char *ptr;
 bool control = false;
 
+bool failsave = true;                 //Fail-Save für Controller-Ausfall
+float minAirTemp = 45.0;              
+float maxAirTemp = 50.0;
+float minAirHum = 10.0;
+float maxAirHum = 80.0;
+float minWaterTemp = 20.0;
+float maxWaterTemp = 30.0;
 
 DHT dht(42, DHT11);
 
@@ -149,6 +156,11 @@ void loop() {
     Serial.println(error);
     error = 0;
   }
+
+  if (failsave == true) {
+    
+  }
+
   //delay(500);    // Wartezeit zwischen Messungen
 }
 
