@@ -14,21 +14,25 @@ float SumHum = 0.0;
 float AirTemp = 0.0;
 float AirHum = 0.0;
 float WaterTemp = 0.0;
-bool control = false;
-
 char CharString[20];
 char delimiter[] = "+";               //Strings zum String zerteilen
 char *ptr;
+bool control = false;
+
 
 DHT dht(42, DHT11);
 
 void setup() {
   Serial.begin(9600);                 //Start des seriellen Monitors
+  
   dht.begin();                        //Aktivieren des DHT11 Sensors
   pinMode(A15, INPUT);                //Input TMP36 Wasser
   pinMode(51, OUTPUT);                //Grün (Piezo-Fogger)
   pinMode(52, OUTPUT);                //Gelb (Heizstab Wasser)
   pinMode(53, OUTPUT);                //Rot (Wärmelampe)
+
+  read_sensor("TMP36");
+  read_sensor("DHT");
 }
 
 void loop() {
@@ -37,13 +41,13 @@ void loop() {
         if (InputString == "debug") {       //Serielle Ausgabe in Klartext
           read_sensor("TMP36");
           read_sensor("DHT");
-          outputDebug();
+          if (error == 0) {outputDebug();}
         }
         
         else if (InputString == "data") {   //Serielle Ausgabe als String
           read_sensor("TMP36");
           read_sensor("DHT");
-          outputData();
+          if (error == 0) {outputData();}
         }
         
         else {
@@ -73,7 +77,6 @@ void loop() {
                   //Serial.print("Steuersignal 1 ist ");
                   if (atoi(ptr) != 0 && atoi(ptr) != 1) {
                     create_error(1);
-                    error++;
                   }
                   else {
                     set1 = atoi(ptr);
@@ -85,7 +88,6 @@ void loop() {
                   //Serial.print("Steuersignal 2 ist ");
                   if (atoi(ptr) != 0 && atoi(ptr) != 1) {
                     create_error(1);
-                    error++;
                   }
                   else {
                     set2 = atoi(ptr);
@@ -97,7 +99,6 @@ void loop() {
                   //Serial.print("Steuersignal 3 ist ");
                   if (atoi(ptr) != 0 && atoi(ptr) != 1) {
                     create_error(1);
-                    error++;
                   }
                   else {
                     set3 = atoi(ptr);
@@ -107,7 +108,6 @@ void loop() {
                   
                 default:
                   create_error(3);
-                  error++;
                   break;
                }
               
@@ -116,7 +116,6 @@ void loop() {
 
             if (control == false) {              //Fehlerhafte Eingabe
               create_error(4);
-              error++;
             }
             
             ptr = strtok(NULL, delimiter);
@@ -133,15 +132,8 @@ void loop() {
           }
           if (durchlauf < 4 && control == true) {
             create_error(2);
-            error++;
-          }
-          if (error > 0) {
-            //Serial.println("Aufgetretene Fehler:");
-            Serial.print("error+errorcount_");
-            Serial.println(error);
           }
           
-          error = 0;
           durchlauf = 0;
           set1 = 0;
           set2 = 0;
@@ -151,7 +143,12 @@ void loop() {
          
       InputString = "";
     }
-  
+  if (error > 0) {
+    //Serial.println("Aufgetretene Fehler:");
+    Serial.print("error+errorcount_");
+    Serial.println(error);
+    error = 0;
+  }
   //delay(500);    // Wartezeit zwischen Messungen
 }
 
@@ -171,58 +168,62 @@ void outputDebug() {    //Übertragen (Ausgeben) der Daten
 }
 
 void outputData() {   //Übertragen (Ausgeben) des Strings
-  if (isnan(AirTemp) || isnan(AirHum)) {
-    create_error(5);                                    //DHT-Sensor hat keine Verbindung
-  }
-  //if (analogRead(TMP36) == 69) {
-  //  create_error(6);                                  //TMP36-Sensor hat keine Verbindung
-  //}
-  else {
-    Serial.println(String(WaterTemp)+"+"+String(AirTemp)+"+"+String(AirHum));   //Format: Wassertemperatur+Lufttemperatur+Luftfeuchte
-  }
+  Serial.println(String(WaterTemp)+"+"+String(AirTemp)+"+"+String(AirHum));   //Format: Wassertemperatur+Lufttemperatur+Luftfeuchte
 }
 
 void create_error(int error_number) {
   switch (error_number) {
     case 1:                       //Wert zum Steuern der Ausgänge ungleich 0 oder 1
       Serial.println("error+unexpected_control_value");
+      error++;
       break;
     
     case 2:                       //Zu niedrige Anzahl der Steuerwerte
       Serial.println("error+unexpected_control_count_low");
+      error++;
       break;
     
     case 3:                       //Zu hohe Anzahl der Steuerwerte
       Serial.println("error+unexpected_control_count_high");
+      error++;
       break;
     
     case 4:                       //Empfangene Daten können nicht interpretiert werden
       Serial.println("error+input_garbage");
+      error++;
       break;
     
     case 5:                       //Verbindung zum DHT11-Sensor verloren
       Serial.println("error+broken_sensor_dht");
+      error++;
       break;
     
     case 6:                       //Verbindung zum analogen Sensor verloren
       Serial.println("error+broken_sensor_analog");
+      error++;
       break;
   }
 }
 
-void read_sensor(String sensor_name){
+void read_sensor(String sensor_name){   
   if (sensor_name == "DHT") {                           //Auslesen der Lufttemperatur und Luftfeuchte
-    for (int count = 0; count <= 9; count++) {          //10 Durchläufe für Ausgleich der Sensorungenauigkeit
-      SumTemp += dht.readTemperature();
-      SumHum += dht.readHumidity();
+    if (isnan(AirTemp) || isnan(AirHum)) {              //DHT-Sensor hat keine Verbindung
+    create_error(5);
     }
-    AirTemp = SumTemp / 10;
-    AirHum = SumHum / 10;
-    SumTemp = 0.0;
-    SumHum = 0.0;
+    else {
+      for (int count = 0; count <= 9; count++) {          //10 Durchläufe für Ausgleich der Sensorungenauigkeit
+        SumTemp += dht.readTemperature();
+        SumHum += dht.readHumidity();
+      }
+      AirTemp = SumTemp / 10;
+      AirHum = SumHum / 10;
+      SumTemp = 0.0;
+      SumHum = 0.0;
+    }
   }
   
   if (sensor_name == "TMP36") {                         //Auslesen der Wassertemperatur
+    //Prüfe auf nicht verbundenen Sensor?
     for (int count = 0; count <= 9; count++) {          //10 Durchläufe für Ausgleich der Sensorungenauigkeit
       SumTemp += (((analogRead(TMP36)*5.0)/1024.0) - 0.5) * 100 ;
     }
