@@ -2,9 +2,8 @@
 Little school project:
 
 Objectives Of The Project:
-	-controls the climate in a small space like a terrarium
-	-monitors the values of different sensors to control the climate accordingly
-	-using a connection between an Arduino and raspberry-pi
+	-control the climate in a small space like a terrarium
+	-
 
 You will need:
 	-some model of a raspberry-pi,
