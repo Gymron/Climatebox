@@ -1,4 +1,3 @@
-# Climatebox
 Little school project:
 
 Objectives Of The Project:
@@ -19,16 +18,16 @@ D42			DHT11 temperature/humidity sensor
 D51			piezo fogger control output
 D52			heating element control Ooutput
 D53			heating lamp control output
-D0(RX)		HV_1 on logic-level-shifter	
-D1(TX)		LV_2 on logic-level-shifter
+D0(RX)			HV_1 on logic-level-shifter	
+D1(TX)			LV_2 on logic-level-shifter
 GND			HV_GND on logic-level-shifter
 5V			HV_VDD on logic-level-shifter
 
 Rapberry-Pi-Pinout (raspberry-pi 4)
 GND			LV_GND on logic-level-shifter
-3.3V		LV_VDD on logic-level-shifter
-GPIO14(TX)	LV_1 on logic-level-shifter
-GPIO15(RX)	LV_2 on logic-level-shifter
+3.3V			LV_VDD on logic-level-shifter
+GPIO14(TX)		LV_1 on logic-level-shifter
+GPIO15(RX)		LV_2 on logic-level-shifter
 
 First-Use-Instructions:
 	-change fail-save values inside the Arduino controller code (min/max AirTemp, AirHum and WaterTemp) accordingly to the requirements of your pets.
