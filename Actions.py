@@ -1,4 +1,5 @@
 from time import sleep
+from sendActionsToArduino import *
 import GetDataFromArduino
 import StringToFloat
 
@@ -20,13 +21,14 @@ def hummitity():
 
     while Powerbuttontrue != Powerbuttonfalse:
         GetDataFromArduino.GetData()
-        StringToFloat.StringToFloat()
+#        StringToFloat.StringToFloat()
         Hummitity = StringToFloat.hummitity
         if Hummitity < Selectedhummitity:
             HummitityCounter = HummitityCounter + 1
             if HummitityCounter == 10:
                 HummitityCounter = 0
-                print("rising Hummidity, Current Hummidity", Hummitity,"  ")
+                print("rising Hummidity, Current Hummidity", Hummitity,"  ")#
+                RiseHummitity()
             # Do something
             sleep(1.5)
 def temp():
@@ -40,6 +42,7 @@ def temp():
             if TempCounter == 10:
                 TempCounter = 0
                 print("rising Temp, Current Temp: ",Temp,"  ")
+                RiseTemp()
             # Do something
             sleep(2)
 def watertemp():
@@ -53,5 +56,6 @@ def watertemp():
             if WTempCounter == 10:
                 WTempCounter = 0
                 print("rising Water Temp, Current Temp: ",WTemp,"  ")
+                RiseWTemp()
             # Do something
             sleep(2)
