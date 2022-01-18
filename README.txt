@@ -33,10 +33,7 @@ First-Use-Instructions:
 	-change fail-save values inside the Arduino controller code (min/max AirTemp, AirHum and WaterTemp) accordingly to the requirements of your pets.
 	-check connection of all sensors
 	-connect Arduino to the raspberry-pi
-	-Run main.py
-	-open http://127.0.0.1:5000/
-	-Type wanted Hummidity/Water Temp/Temp into the editboxes
-	-Press GO
+	-TODO
 
 Arduino-Features:
 	-serial communication (9600 Baud) over USB or serial pins(read note below)
@@ -57,16 +54,9 @@ Arduino-Features:
 		-circuit diagram of the logic-level-shifter and corresponding CAD-files are located in the LLS_Diagram folder
 
 Rapberry-Pi-Features:
-		-reads current sensor data from arduino
-		-Processes data sent drom arduino
-		-Accepts imput from data into python backend
-		-Hosts a website
-		-logs data
-		
+	-TODO
 
 Descripton Of Files:
 	-LLC_diagram		Logic Level Converter circuit
 	-Project.ino		Arduino controller program
-	-Main.py		Starts webserver
-	-Actions.py		All Actions handeling data from Arduino
-	-views.py		Displays and processes data from website
+	-TODO
