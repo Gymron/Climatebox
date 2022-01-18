@@ -42,7 +42,6 @@ Arduino-Features:
 	-send "debug" to get the current values as human-readable strings
 	-send "control" to control the three outputs in the following way: "control+PIEZOFOGGER+HEATINGELEMENT+HEATINGLAMP".
 		Replace capitalized words with "0" or "1" instead of the placeholders to turn the outputs off or on.
-	-integrated fail-save to protect pets in case of main controller failure
 	-error-handling
 		-will output error messages in the following format: "error+ERRORMESSAGE"
 		-will output "error+errorcount_" followed by the total number of errors after all error messages
@@ -56,4 +55,9 @@ Arduino-Features:
 		-circuit diagram of the logic-level-shifter and corresponding CAD-files are located in the LLS_Diagram folder
 
 Rapberry-Pi-Features:
+	-TODO
+
+Descripton Of Files:
+	-LLC_diagram		Logic Level Converter circuit
+	-Project.ino		Arduino controller program
 	-TODO
