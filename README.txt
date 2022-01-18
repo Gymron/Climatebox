@@ -54,9 +54,16 @@ Arduino-Features:
 		-circuit diagram of the logic-level-shifter and corresponding CAD-files are located in the LLS_Diagram folder
 
 Rapberry-Pi-Features:
-	-TODO
+		-reads current sensor data from arduino
+		-Processes data sent drom arduino
+		-Accepts imput from data into python backend
+		-Hosts a website
+		-logs data
+		
 
 Descripton Of Files:
 	-LLC_diagram		Logic Level Converter circuit
 	-Project.ino		Arduino controller program
-	-TODO
+	-Main.py		Starts webserver
+	-Actions.py		All Actions handeling data from Arduino
+	-views.py		Displays and processes data from website
