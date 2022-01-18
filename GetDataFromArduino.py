@@ -1,7 +1,7 @@
 import serial
 
 line = "18.36+22.00+35.00"
-Sensordata = ""
+
 
 def GetData():
     #    if __name__ == '__main__':
@@ -14,5 +14,4 @@ def GetData():
     #          if ser.in_waiting > 0:
     #               line = ser.readline().decode('utf-8').rstrip()
     #                print(line)
-    Sensordata = line
-    return Sensordata
+    return line
