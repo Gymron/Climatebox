@@ -33,7 +33,10 @@ First-Use-Instructions:
 	-change fail-save values inside the Arduino controller code (min/max AirTemp, AirHum and WaterTemp) accordingly to the requirements of your pets.
 	-check connection of all sensors
 	-connect Arduino to the raspberry-pi
-	-TODO
+	-Run main.py
+	-open http://127.0.0.1:5000/
+	-Type wanted Hummidity/Water Temp/Temp into the editboxes
+	-Press GO
 
 Arduino-Features:
 	-serial communication (9600 Baud) over USB or serial pins(read note below)
