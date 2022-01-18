@@ -1,2 +1,0 @@
-# Climatebox
-Little school project:
