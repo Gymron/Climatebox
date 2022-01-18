@@ -1,7 +1,7 @@
 import serial
 
-Sensordata = "00.00+00.00+00.00"
 line = "18.36+22.00+35.00"
+Sensordata = ""
 
 def GetData():
     #    if __name__ == '__main__':
@@ -15,3 +15,4 @@ def GetData():
     #               line = ser.readline().decode('utf-8').rstrip()
     #                print(line)
     Sensordata = line
+    return Sensordata

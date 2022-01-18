@@ -22,6 +22,7 @@ def hummitity():
 
     while Powerbuttontrue != Powerbuttonfalse:
         GetDataFromArduino.GetData()
+        StringToFloat.StringToFloat()
         #        StringToFloat.StringToFloat()
         Hummitity = StringToFloat.hummitity
         if Hummitity < Selectedhummitity:
